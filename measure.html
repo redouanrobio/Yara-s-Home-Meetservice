@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Metingen</title>
+<style>
+body { font-family: Arial; padding:20px; }
+h1 { color:#0A84FF; }
+input { padding:10px; width:100%; margin:10px 0; }
+.result { background:#f1f1f1; padding:15px; margin-top:20px; border-radius:10px; }
+</style>
+</head>
+
+<body>
+<h1>Metingen</h1>
+
+<p>Voer je maten in:</p>
+
+<label>Breedte (mm):</label>
+<input id="w" type="number">
+
+<label>Hoogte (mm):</label>
+<input id="h" type="number">
+
+<button onclick="calc()" style="padding:10px 20px; background:#0A84FF; color:white; border:none; border-radius:10px;">Bereken</button>
+
+<div id="output" class="result"></div>
+
+<script>
+function calc() {
+  const w = document.getElementById('w').value;
+  const h = document.getElementById('h').value;
+  if (!w || !h) return;
+  document.getElementById('output').innerHTML =
+    `Breedte: <b>${w} mm</b><br>Hoogte: <b>${h} mm</b>`;
+}
+</script>
+
+<a href="index.html">⬅ Terug</a>
+</body>
+</html>
