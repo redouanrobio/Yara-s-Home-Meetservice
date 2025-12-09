@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>MeetApp</title>
+<link rel="manifest" href="manifest.json">
+<style>
+body { font-family: Arial; padding: 20px; }
+a.btn{display:block;padding:15px;background:#0A84FF;color:white;
+border-radius:10px;text-align:center;margin:10px 0;text-decoration:none;}
+</style>
+</head>
+<body>
+<h1>Raamdecoratie MeetApp</h1>
+
+<a class="btn" href="frames.html">Kozijnvoorbeelden</a>
+<a class="btn" href="products.html">Producten</a>
+<a class="btn" href="measure.html">Metingen</a>
+
+<script>
+if("serviceWorker" in navigator){
+  navigator.serviceWorker.register("sw.js");
+}
+</script>
+</body>
+</html>
