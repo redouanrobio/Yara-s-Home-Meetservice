@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Meetformulier Raamdecoratie</title>
+
+<style>
+body { font-family: Arial; padding:20px; background:#f7f7f7; }
+h1 { color:#0A84FF; }
+.section { background:white; padding:15px; margin-bottom:15px; border-radius:10px; }
+label { font-weight:bold; }
+input, select { width:100%; padding:10px; margin:5px 0 15px 0; border-radius:8px; border:1px solid #ccc; }
+.hidden { display:none; }
+button { width:100%; padding:15px; background:#0A84FF; color:white; border:none; border-radius:10px; font-size:18px;}
+</style>
+</head>
+
+<body>
+
+<h1>Meetformulier</h1>
+
+<!-- 1. Raamtype -->
+<div class="section">
+<label>Raamtype kiezen:</label>
+<select id="typeSelect" onchange="showTypeFields()">
+  <option value="">-- Selecteer raamtype --</option>
+  <option value="standaard">Standaard raam (recht)</option>
+  <option value="draai">Draaikiep raam</option>
+  <option value="erker">Erker</option>
+  <option value="rond">Rond / Boograam</option>
+  <option value="u">Verdiepte dagkant / U-profiel</option>
+</select>
+</div>
+
+<!-- 2. Metingen standaard -->
+<div id="standaardFields" class="section hidden">
+<h3>Metingen – Standaard / Draaikiep / U-profiel</h3>
+
+<label>Breedte boven (mm):</label><input id="b1" type="number">
+<label>Breedte midden (mm):</label><input id="b2" type="number">
+<label>Breedte onder (mm):</label><input id="b3" type="number">
+
+<label>Hoogte links (mm):</label><input id="h1" type="number">
+<label>Hoogte rechts (mm):</label><input id="h2" type="number">
+
+<button onclick="calcStandard()">Bereken kleinste maten</button>
+
+<div id="standardResult" style="margin-top:10px; font-weight:bold;"></div>
+</div>
+
+<!-- 3. Erker -->
+<div id="erkerFields" class="section hidden">
+<h3>Metingen – Erker (per vlak)</h3>
+
+<label>Vlak 1 breedte (mm):</label><input id="e1" type="number">
+<label>Vlak 2 breedte (mm):</label><input id="e2" type="number">
+<label>Vlak 3 breedte (mm):</label><input id="e3" type="number">
+
+<label>Hoogte links (mm):</label><input id="eh1" type="number">
+<label>Hoogte rechts (mm):</label><input id="eh2" type="number">
+</div>
+
+<!-- 4. Rond raam -->
+<div id="rondFields" class="section hidden">
+<h3>Metingen – Rond / Boog</h3>
+
+<label>Breedte (mm):</label><input id="rb" type="number">
+<label>Hoogste punt (mm):</label><input id="rh" type="number">
+</div>
+
+<!-- 5. Foto upload -->
+<div class="section">
+<h3>Foto's uploaden</h3>
+
+<label>Foto 1 (vooraanzicht):</label>
+<input type="file" accept="image/*" capture="camera">
+
+<label>Foto 2 (schuin links):</label>
+<input type="file" accept="image/*" capture="camera">
+
+<label>Foto 3 (schuin rechts):</label>
+<input type="file" accept="image/*" capture="camera">
+
+<label>Detailfoto obstakels:</label>
+<input type="file" accept="image/*" capture="camera">
+</div>
+
+<!-- 6. Knop verzenden -->
+<button onclick="exportData()">Versturen</button>
+
+<script>
+// raamtype tonen
+function showTypeFields() {
+    document.getElementById("standaardFields").classList.add("hidden");
+    document.getElementById("erkerFields").classList.add("hidden");
+    document.getElementById("rondFields").classList.add("hidden");
+
+    let t = document.getElementById("typeSelect").value;
+
+    if (t === "standaard" || t === "draai" || t === "u") {
+        document.getElementById("standaardFields").classList.remove("hidden");
+    }
+    if (t === "erker") {
+        document.getElementById("erkerFields").classList.remove("hidden");
+    }
+    if (t === "rond") {
+        document.getElementById("rondFields").classList.remove("hidden");
+    }
+}
+
+// bereken kleinste maat
+function calcStandard() {
+    let b1 = parseInt(document.getElementById("b1").value) || 99999;
+    let b2 = parseInt(document.getElementById("b2").value) || 99999;
+    let b3 = parseInt(document.getElementById("b3").value) || 99999;
+
+    let h1 = parseInt(document.getElementById("h1").value) || 99999;
+    let h2 = parseInt(document.getElementById("h2").value) || 99999;
+
+    let minB = Math.min(b1,b2,b3);
+    let minH = Math.min(h1,h2);
+
+    document.getElementById("standardResult").innerHTML =
+        "Breedte kleinste maat: <b>" + minB + " mm</b><br>" +
+        "Hoogte kleinste maat: <b>" + minH + " mm</b>";
+}
+
+// exporteren (tijdelijk: toon gegevens)
+function exportData() {
+    alert("De meting is gereed om te versturen. (E-mail / WhatsApp integratie kan ik toevoegen)");
+}
+</script>
+
+</body>
+</html>
